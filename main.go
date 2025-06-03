@@ -11,11 +11,6 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-var serviceSlugs = []string{
-	"speedaf",
-	"tcs",
-}
-
 var refreshInterval *int
 
 type model struct {
@@ -43,7 +38,10 @@ func main() {
 	}
 
 	if !serviceNameValid(*serviceSlug) {
-		fmt.Printf("Invalid service slug. Valid options are: %v\n", serviceSlugs)
+		fmt.Printf("Invalid service slug. Valid options are:\n")
+		for slug := range trackers.ServiceSlugs {
+			fmt.Printf("- %s\n", slug)
+		}
 		return
 	}
 
@@ -77,10 +75,8 @@ func main() {
 }
 
 func serviceNameValid(serviceSlug string) bool {
-	for _, slug := range serviceSlugs {
-		if slug == serviceSlug {
-			return true
-		}
+	if _, ok := trackers.ServiceSlugs[serviceSlug]; ok {
+		return true
 	}
 	return false
 }

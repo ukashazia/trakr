@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+var ServiceSlugs = map[string]any{
+	"speedaf": nil,
+	"tcs":     nil,
+}
+
 type (
 	TrackingInfoMsg      []any
 	TrackingInfoErrorMsg error
